@@ -1,0 +1,17 @@
+# Ignore MongoDB-data..
+/devdb
+
+# Ignore bower/node components
+/bower_components
+/node_modules
+
+# Ignore compiled js files (buildt from coffeescript..)
+/src/js
+
+
+# Ignore user-specific webstorm settings
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dataSources.ids
+.idea/dataSources.local.xml
+.idea/dictionaries/

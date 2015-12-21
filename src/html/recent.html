@@ -1,0 +1,33 @@
+<h1 class="page-header">Recent ratings</h1>
+
+<div class="row placeholders">
+    <div class="col-xs-6 col-sm-3 placeholder"
+         ng-repeat="review in reviews| orderBy: created: true| limitTo: 4">
+        <a href="#/details/{{review._id}}/{{review.imdbid}}">
+        <img ng-init="get_poster_url(review.imdbid)" ng-show="posters[review.imdbid]"
+             ng-src="{{posters[review.imdbid]}}" width="200" height="200"
+             class="img-responsive" alt="Generic placeholder thumbnail">
+        <h4>{{review.movietitle}}</h4>
+        <rating ng-model="review.rating" max="10" readonly="true"></rating>
+        </a>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Rating</th>
+            <th>Review header</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="review in reviews| orderBy: created: true| limitTo: 40: 4" ng-click="navigate_to_movie(review._id, review.imdbid)">
+            <td>{{review.movietitle}}</td>
+            <td><rating ng-model="review.rating" max="10" readonly="true"></rating></td>
+            <td>{{review.header}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

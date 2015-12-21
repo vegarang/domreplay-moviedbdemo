@@ -1,0 +1,13 @@
+{
+  "name": "moviedbdemo",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "angular": "~1.4.x",
+    "angular-bootstrap": "~0.13.3",
+    "angular-resource": "1.4.x",
+    "angular-route": "1.4.x",
+    "angular-animate": "1.4.x",
+    "bootstrap": "~3.3.5"
+  }
+}

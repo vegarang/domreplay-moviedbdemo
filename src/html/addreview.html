@@ -1,0 +1,96 @@
+
+<h1 class="page-header">Add your review</h1>
+
+<div class="row" ng-hide="omdb.status=='selected'">
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="typeselection" class="col-sm-2">Select type</label>
+            <div class="col-sm-10">
+            <div class="btn-group" dropdown is-open="movieselection.isopen">
+                <button id="typeselection" type="button" class="btn btn-primary" dropdown-toggle>
+                    {{movieselection.types[movieselection.selected_index]}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li role="menuitem" ng-repeat="type in movieselection.types track by $index"
+                        ng-click="movieselection.selected_index=$index"><a>{{movieselection.types[$index]}}</a></li>
+                </ul>
+            </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="openmoviesearch" class="col-sm-2">Find a {{movieselection.types[movieselection.selected_index]}}</label>
+            <div class="col-sm-10">
+                <input type="search" class="form-control" id="openmoviesearch"
+                       placeholder="Search..."
+                       ng-change="omdb.timeout = update_omdb_search(omdbsearch, omdb.timeout, omdb_search_callback, movieselection.types[movieselection.selected_index])"
+                       ng-model="omdbsearch">
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="row" ng-show="omdb.status=='recieved'">
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><b>{{omdb.movie.Type}}:</b> {{omdb.movie.Title}}</h3>
+            </div>
+            <div class="panel-body">
+                <div class="col-sm-10">
+                    {{omdb.movie.Plot}}
+                </div>
+                <div class="col-sm-2">
+                    <button class="btn btn-default" ng-click="select_omdb_movie()">Select</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" ng-show="omdb.status=='selected'">
+
+    <div class="alert alert-danger" ng-show="reviewerror"><strong>Oh snap!</strong> {{reviewerrortext}}</div>
+
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="movietitle" class="col-sm-2">Movie title</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="movietitle"
+                       value="{{review.movietitle}}" disabled>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="user" class="col-sm-2">Username</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="user"
+                    placeholder="Username" ng-model="review.username">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2" >Rating</label>
+            <div class="col-sm-10">
+                <rating ng-model="review.rating" max="10"
+                    on-hover="on_rating_hover(value)" on-leave="hover_on_star=null"></rating>
+                <span ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}"
+                    class="label" ng-show="hover_on_star">{{percent}}%</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="heading" class="col-sm-2">Review title</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="heading"
+                       placeholder="Review title" ng-model="review.header">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="reviewtext" class="col-sm-2">Review text</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" id="reviewtext"
+                          placeholder='Your review of "{{review.movietitle}}"'
+                          ng-model="review.text" rows="3"></textarea>
+            </div>
+        </div>
+        <button class="btn btn-primary col-sm-6 col-md-4 col-md-push-2" ng-click="save_review()">Save</button>
+        <button class="btn btn-default col-sm-6 col-md-4 col-md-push-2" ng-click="init()">Cancel</button>
+    </form>
+</div>

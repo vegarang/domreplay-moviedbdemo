@@ -1,0 +1,50 @@
+<h1 class="page-header">{{review.movietitle}}</h1>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Info</h3>
+    </div>
+    <div class="panel-body">
+        <div class="col-md-4">
+            <a target="_blank" href="http://www.imdb.com/title/{{review.imdbid}}/">
+                <img src="{{omdbmovie.Poster}}" height="300px" style="padding-bottom: 20px">
+                <p>Check it out on IMDb</p>
+            </a>
+        </div>
+
+        <div class="col-md-8">
+            <table class="table table-condensed">
+                <tr ng-repeat="key in omdbkeys">
+                    <td><strong>{{key}}</strong></td>
+                    <td>{{omdbmovie[key]}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{review.header}}
+            <button class="btn btn-small btn-danger pull-right" ng-click="delete_review()">delete</button>
+        </h3>
+        <rating ng-model="review.rating" max="10" readonly="true"></rating>
+    </div>
+    <div class="panel-body">
+        {{review.text}}
+    </div>
+</div>
+
+<table class="table table-condensed table-hover" ng-show="others.length > 0">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th colspan="2">Rating</th>
+        </tr>
+    </thead>
+    <tr ng-repeat="other in others"
+        ng-if="other._id != review._id"
+        ng-click="navigate_to_movie(other._id, other.imdbid)">
+        <td>{{other.username}}</td>
+        <td><rating ng-model="other.rating" max="10" readonly="true"></rating></td>
+        <td>{{other.header}}</td>
+    </tr>
+</table>

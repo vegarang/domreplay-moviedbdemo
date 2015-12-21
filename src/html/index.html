@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="moviedbdemo">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>OpenMovieDB - DOMReplay demosite</title>
+
+    <link href="/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="lib/src/css/dashboard.css" rel="stylesheet">
+</head>
+
+<body ng-controller="MainController">
+
+<script type="text/ng-template" id="mainsearchdropdown.html">
+    <a>
+        <p>{{match.model.movietitle}}</p>
+        <p><rating ng-model="match.model.rating" max="10" readonly="true"></rating></p>
+    </a>
+</script>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">DOMReplay movieDB demosite</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+
+            <form class="navbar-form navbar-right">
+                <input type="text" class="form-control" placeholder="Search reviews..."
+                       ng-model="main_search_value"
+                       typeahead="review as review.movietitle for review in search_movietitle($viewValue)"
+                       typeahead-template-url="mainsearchdropdown.html"
+                       typeahead-on-select="navigate_to_movie(main_search_value._id, main_search_value.imdbid)"
+                >
+            </form>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li ng-class="{active: currentView.recent}"><a href="#/recent">Recent reviews</a></li>
+                <li ng-class="{active: currentView.addreview}"><a href="#/addreview">Add new review</a></li>
+            </ul>
+            <ul class="nav nav-sidebar">
+                <li ng-class="{active: currentView.tutorials}"><a href="#/tutorials">Tutorials</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-view></div>
+    </div>
+</div>
+
+
+<script src="/lib/angular/angular.js" type="application/javascript"></script>
+<script src="/lib/angular-resource/angular-resource.js" type="application/javascript"></script>
+<script src="/lib/angular-route/angular-route.js" type="application/javascript"></script>
+<script src="/lib/angular-bootstrap/ui-bootstrap-tpls.js" type="application/javascript"></script>
+<script src="/lib/angular-animate/angular-animate.js" type="application/javascript"></script>
+<script src="/lib/src/moviedbdemo.js" type="application/javascript"></script>
+
+</body>
+</html>
